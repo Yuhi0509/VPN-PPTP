@@ -159,9 +159,9 @@ sudo /etc/init.d/pptpd restart
 ```
 點選 "Advanced"，並勾選 "使用點對點加密[MPPE](P)"
 ```
-![vpnset3](pic/vpnset3)
+![vpnset3](pic/vpnset3.png)
 以上步驟完成就有一個VPN了
-![vpnsetdown](pic/vpnsetdown)
+![vpnsetdown](pic/vpnsetdown.png)
 
 -Step3(將VPN開啟)
 
