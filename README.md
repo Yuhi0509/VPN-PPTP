@@ -19,4 +19,32 @@
 ```
 sudo apt-get install pptpd
 ```
-![installpptpd](vpn/installpptpd.png)
+![installpptpd](vpn/instllpptpd.png)
+
+- Step-2(更改pptd.conf裡的loaclip 和 remoteip)
+
+```
+sudo nano /etc/pptpd.conf
+```
+
+在此設定檔中，需要修改的項目只有設定檔路徑、紀錄檔功能是否啟用、本地端（指VPN伺服器本身）使用的IP位址，以及VPN客戶端連線後可以使用的IP位址。當VPN客戶端連線成功後，VPN伺服器會依照設定從此範圍的IP位址中指派一個IP給對方。
+
+「localip」指定了VPN伺服器所使用的IP位址，一般只要指定正確的位址，便不會有任何的錯誤發生。「remoteip」則是指定客戶端連線可以使用的IP位址範圍，可用「remoteip 192.168.6.75-85」這種格式加以指定，表示192.168.6.75到192.168.6.255這180個IP位址，都可以指派成為客戶端連線時所使用的IP位址。
+
+只要此範圍內的所有IP位址與本地網路中已被使用的位址沒有衝突，就能作為客戶端可以使用的IP位址範圍。此處指派的位址都是私有位址（Private IP Address），因為大多數的內部網路會使用私有位址。
+
+![pptpdconf](vpn/pptpdconf.png)
+
+- Step-3(修改pptpd-options)
+
+```
+sudo nano /etc/ppp/pptpd-options
+```
+在「/etc/ppp/pptpd-options」設定檔中，只須注意「name」與「ms-dns」兩個設定項目。「name」欄位表示此VPN伺服器所使用的名稱，直接使用預設值「pptpd」，或是自行指定新名稱皆可。
+要注意的是，此名稱稍後在「/etc/ppp/chap-secrets」設定檔中會被使用，因此務必指定正確的名稱才能成功完成VPN連線。
+
+如果客戶端使用的是Windows版本的VPN連接程式，可以由VPN伺服器決定該連線所須使用的DNS伺服器位址。此時只須指定此設定檔中的「ms-dns」欄位，並在後方加上正確的DNS伺服器位址即可。
+「ms-dns」欄位可以同時設定二組，第一組會被設定為Windows客戶端的主要DNS伺服器，第二組則是次要DNS伺服器。但此欄位最多只能設定二組，超過二組的部分將不會被使用!
+
+![
+
