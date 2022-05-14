@@ -1,8 +1,8 @@
 # VPN架設-PPTP
 
 <!-- vim-markdown-toc GFM -->
-* [甚麼是VPN]
-* [甚麼是PPTP]
+* [甚麼是VPN](#甚麼是vpn)
+* [甚麼是PPTP](#甚麼是pptp)
 * [實作步驟]
 
 <!-- vim-markdown-toc -->.
