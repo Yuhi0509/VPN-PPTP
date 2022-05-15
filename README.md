@@ -122,6 +122,8 @@ sudo iptables -t nat -A POSTROUTING -s 192.168.5.0/24 -o enp0s3 -j MASQUERADE
 ```
 系統可能執行防火牆，因此會阻擋外部來的VPN連線要求，所以要輸入下列防火牆指令，以便讓來自VPN客戶端的封包，可以經由VPN伺服器轉送出去。
 
+補充:這裡的IP就是先前你本機的IP只是在最後的號碼變成0，舉例我原本設定的IP是 192.168.5.102，只要把102拿掉換成0，就像 192.168.5.0這樣，這CODE只需把這邊和我前導說過要記得的網路介面卡名稱改成你自己的，這樣就可以了。
+
 ![補充](pic/補充.png)
 
 
@@ -141,9 +143,22 @@ sudo /etc/init.d/pptpd restart
 點選 "再製"
 ```
 ![copy](pic/copy.png)
-再製完記得要去把網卡改成 "橋接介面卡"。
+再製完記得要去把網卡改成 "橋接介面卡"
+
+-Step-3(把Sever端即裝有pptp的ubuntu打開)
+打開Server端的終端機輸入
+
+```
+sudo /etc/init.d/pptpd start
+```
+這是把pptp打開，必經剛剛關掉整台ubuntu
+```
+sudo iptables -t nat -A POSTROUTING -s 192.168.5.0/24 -o enp0s3 -j MASQUERADE
+```
+因為每次ubuntu關機後，防火牆設定會被重新設定，所以我們重開機會還要再輸入一次，這裡的code跟先前防火牆設定一樣
 
 -Step-2(設定VPN連線)
+切換到 client 端的 ubuntu，我們來新增一個 VPN連線
 
 ```
 新增一個VPN
@@ -170,10 +185,18 @@ sudo /etc/init.d/pptpd restart
 ```
 ![plat](pic/plat.png)
 
--Step4(最後驗收)
+-Step5(最後驗收)
 ```
 ipconfig
 ```
-如果成功連上的話，會看到ppp0上會的IP會和Server端分配的IP
+分別在Server端和Client端的終端機輸入ifconfig，如果有顯示和我圖中一樣
 
+Server端有PPP0 ，並且可以在裡面看到 destination，這就是Server端分配出去的IP
+
+![server](pic/server.png)
+
+
+Client端也有PPP0，cleint端的IP 即是 Server端分配的IP，也可以在 destination看到Server端的IP
+
+![client](pic/client.png)
 
