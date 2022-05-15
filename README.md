@@ -85,7 +85,7 @@ sudo nano /etc/ppp/pptpd-options
 ![dns](pic/dns.png)
 
 
--Step-5(新增使用者)
+- Step-5(新增使用者)
 
 ```
 sudo nano /etc/ppp/chap-secrets
@@ -101,7 +101,7 @@ Secret：此欄位即使用者登入時所使用的密碼。例如此欄位設�
 
 
 
--Step-6(設定本機DNS)
+- Step-6(設定本機DNS)
 ```
 開啟網路設定
 ```
@@ -115,7 +115,7 @@ Secret：此欄位即使用者登入時所使用的密碼。例如此欄位設�
 
 
 
--Step-7(設定防火牆)
+- Step-7(設定防火牆)
 
 ```
 sudo iptables -t nat -A POSTROUTING -s 192.168.5.0/24 -o enp0s3 -j MASQUERADE
@@ -128,7 +128,7 @@ sudo iptables -t nat -A POSTROUTING -s 192.168.5.0/24 -o enp0s3 -j MASQUERADE
 
 
 
--Step-8(重啟pptp)
+- Step-8(重啟pptp)
 
 ```
 sudo /etc/init.d/pptpd restart
@@ -138,26 +138,29 @@ sudo /etc/init.d/pptpd restart
 
 ## 功能驗收
 
--Step-1(再製一台虛擬機)
+- Step-1(再製一台虛擬機)
 ```
 點選 "再製"
 ```
 ![copy](pic/copy.png)
 再製完記得要去把網卡改成 "橋接介面卡"
 
--Step-3(把Sever端即裝有pptp的ubuntu打開)
+-Step-2(把Sever端即裝有pptp的ubuntu打開)
 打開Server端的終端機輸入
+
 
 ```
 sudo /etc/init.d/pptpd start
 ```
-這是把pptp打開，必經剛剛關掉整台ubuntu
+
+因為每次ubuntu重開機後都要重新把PPTP打開
 ```
 sudo iptables -t nat -A POSTROUTING -s 192.168.5.0/24 -o enp0s3 -j MASQUERADE
 ```
-因為每次ubuntu關機後，防火牆設定會被重新設定，所以我們重開機會還要再輸入一次，這裡的code跟先前防火牆設定一樣
+和上面一樣每次ubuntu關機後，防火牆設定會被重新設定，所以我們重開機會還要再輸入一次，這裡的code跟先前防火牆設定一樣
 
--Step-2(設定VPN連線)
+
+-Step-3(設定VPN連線)
 切換到 client 端的 ubuntu，我們來新增一個 VPN連線
 
 ```
@@ -178,14 +181,17 @@ sudo iptables -t nat -A POSTROUTING -s 192.168.5.0/24 -o enp0s3 -j MASQUERADE
 以上步驟完成就有一個VPN了
 ![vpnsetdown](pic/vpnsetdown.png)
 
--Step3(將VPN開啟)
+
+- Step4(將VPN開啟)
 
 ```
 點開VPN，密碼即是先前PPTP設置的 "secret" 
 ```
 ![plat](pic/plat.png)
 
--Step5(最後驗收)
+
+
+- Step5(最後驗收)
 ```
 ipconfig
 ```
