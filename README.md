@@ -145,7 +145,7 @@ sudo /etc/init.d/pptpd restart
 ![copy](pic/copy.png)
 再製完記得要去把網卡改成 "橋接介面卡"
 
--Step-2(把Sever端即裝有pptp的ubuntu打開)
+- Step-2(把Sever端即裝有pptp的ubuntu打開)
 打開Server端的終端機輸入
 
 
@@ -160,7 +160,7 @@ sudo iptables -t nat -A POSTROUTING -s 192.168.5.0/24 -o enp0s3 -j MASQUERADE
 和上面一樣每次ubuntu關機後，防火牆設定會被重新設定，所以我們重開機會還要再輸入一次，這裡的code跟先前防火牆設定一樣
 
 
--Step-3(設定VPN連線)
+- Step-3(設定VPN連線)
 切換到 client 端的 ubuntu，我們來新增一個 VPN連線
 
 ```
