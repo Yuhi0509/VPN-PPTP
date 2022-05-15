@@ -143,9 +143,13 @@ sudo /etc/init.d/pptpd restart
 點選 "再製"
 ```
 ![copy](pic/copy.png)
+
+
 再製完記得要去把網卡改成 "橋接介面卡"
 
 - Step-2(把Sever端即裝有pptp的ubuntu打開)
+
+
 打開Server端的終端機輸入
 
 
@@ -178,7 +182,11 @@ sudo iptables -t nat -A POSTROUTING -s 192.168.5.0/24 -o enp0s3 -j MASQUERADE
 點選 "Advanced"，並勾選 "使用點對點加密[MPPE](P)"
 ```
 ![vpnset3](pic/vpnset3.png)
+
+
 以上步驟完成就有一個VPN了
+
+
 ![vpnsetdown](pic/vpnsetdown.png)
 
 
@@ -196,6 +204,7 @@ sudo iptables -t nat -A POSTROUTING -s 192.168.5.0/24 -o enp0s3 -j MASQUERADE
 ipconfig
 ```
 分別在Server端和Client端的終端機輸入ifconfig，如果有顯示和我圖中一樣
+
 
 Server端有PPP0 ，並且可以在裡面看到 destination，這就是Server端分配出去的IP
 
